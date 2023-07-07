@@ -12,16 +12,32 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false,
+      "all": true,
+      "dialog": {
+        "open": true
+      },
       "shell": {
         "all": false,
         "open": true
+      },
+      "fs": {
+        "all": true,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "exists": true,
+        "scope": ["**"]
       }
     },
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "com.renbrek.dev",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
