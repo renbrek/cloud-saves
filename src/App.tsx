@@ -5,14 +5,8 @@ import './App.css';
 import { readDir, BaseDirectory, FileEntry } from '@tauri-apps/api/fs';
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState('');
-  const [name, setName] = useState('');
   const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
   const [files, setFiles] = useState<FileEntry[]>();
-
-  async function greet() {
-    setGreetMsg(await invoke('greet', { name }));
-  }
 
   const readFileContents = async () => {
     try {
@@ -41,7 +35,6 @@ function App() {
   return (
     <div className="container">
       <h1>Welcome to Tauri!</h1>
-      <p>{greetMsg}</p>
       <button type="submit" onClick={readFileContents}>
         Open File
       </button>
