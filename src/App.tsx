@@ -3,6 +3,7 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { open } from '@tauri-apps/api/dialog';
 import './App.css';
 import { readDir, BaseDirectory, FileEntry } from '@tauri-apps/api/fs';
+import WorldsView from './components/WorldsView/WorldsView';
 
 function App() {
   const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
@@ -34,23 +35,12 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Welcome to Tauri!</h1>
+      <h1>Cloud Saves</h1>
       <button type="submit" onClick={readFileContents}>
-        Open File
+        Open Folder
       </button>
       <div>Selected Folder: {selectedFolder}</div>
-      {files ? (
-        <div>
-          Files:
-          {files.map((file) => (
-            <div key={file.path}>{file.name}</div>
-          ))}
-        </div>
-      ) : selectedFolder ? (
-        <>No files</>
-      ) : (
-        <></>
-      )}
+      {selectedFolder && files ? <WorldsView files={files} /> : <></>}
     </div>
   );
 }
