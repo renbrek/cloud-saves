@@ -29,7 +29,6 @@ function App() {
         recursive: true,
       }).then((files) => {
         setFiles(files);
-        console.log(files);
       });
   }, [selectedFolder]);
 

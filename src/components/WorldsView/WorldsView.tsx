@@ -1,45 +1,13 @@
 import { FileEntry } from '@tauri-apps/api/fs';
 import type { FC } from 'react';
+import { getWorldsFromFiles } from '../../utils/getWorldsFromFiles';
+import WorldItem from './WorldItem';
 
 interface WorldsViewProps {
   files: FileEntry[];
 }
 
-export interface TerrariaWorld {
-  name: string;
-  worldFiles: FileEntry[];
-}
-
 const WorldsView: FC<WorldsViewProps> = ({ files }) => {
-  const getWorldsFromFiles = (files: FileEntry[]): TerrariaWorld[] => {
-    const worldsMap = new Map<string, FileEntry[]>();
-
-    files.forEach((file) => {
-      if (!file.name) {
-        return;
-      }
-      const nameWithoutExt = file.name.replace(/\.[^/.]+$/, '');
-      if (!worldsMap.has(nameWithoutExt)) {
-        worldsMap.set(nameWithoutExt, []);
-      }
-      worldsMap.get(nameWithoutExt)?.push(file);
-    });
-
-    console.log(worldsMap);
-
-    const worlds: TerrariaWorld[] = Array.from(worldsMap).map((rawWorld) => {
-      const world: TerrariaWorld = {
-        name: rawWorld[0],
-        worldFiles: rawWorld[1],
-      };
-      return world;
-    });
-
-    console.log(worlds);
-
-    return worlds;
-  };
-
   const worlds = getWorldsFromFiles(files);
 
   return (
@@ -48,7 +16,7 @@ const WorldsView: FC<WorldsViewProps> = ({ files }) => {
         <>
           Worlds:
           {worlds.map((world) => (
-            <div key={world.name}>{world.name}</div>
+            <WorldItem key={world.name} world={world} />
           ))}
         </>
       ) : (
